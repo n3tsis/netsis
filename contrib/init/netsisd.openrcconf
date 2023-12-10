@@ -1,0 +1,33 @@
+# /etc/conf.d/netsisd: config file for /etc/init.d/netsisd
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/netsis/netsis.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/netsisd"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/netsisd.pid"
+
+# Where to write netsisd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/netsisd"
+
+# User and group to own netsisd process
+#BITCOIND_USER="netsis"
+#BITCOIND_GROUP="netsis"
+
+# Path to netsisd executable
+#BITCOIND_BIN="/usr/bin/netsisd"
+
+# Nice value to run netsisd under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#BITCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for netsisd to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+BITCOIND_SIGTERM_TIMEOUT=60

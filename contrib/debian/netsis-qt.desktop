@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Netsis Core
+Comment=Netsis P2P Cryptocurrency
+Comment[de]=Verbinde mit dem Netsis peer-to-peer Netzwerk
+Comment[fr]=Netsis, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Netsis, eşten eşe kriptografik sanal para birimi
+Exec=netsis-qt %u
+Terminal=false
+Type=Application
+Icon=netsis128
+MimeType=x-scheme-handler/netsis;
+Categories=Office;Finance;
+StartupWMClass=Netsis-qt

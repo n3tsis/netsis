@@ -1,0 +1,25 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="ar">locale/netsis_ar.qm</file>
+        <file alias="bg">locale/netsis_bg.qm</file>
+        <file alias="de">locale/netsis_de.qm</file>
+        <file alias="en">locale/netsis_en.qm</file>
+        <file alias="es">locale/netsis_es.qm</file>
+        <file alias="fi">locale/netsis_fi.qm</file>
+        <file alias="fr">locale/netsis_fr.qm</file>
+        <file alias="it">locale/netsis_it.qm</file>
+        <file alias="ja">locale/netsis_ja.qm</file>
+        <file alias="ko">locale/netsis_ko.qm</file>
+        <file alias="nl">locale/netsis_nl.qm</file>
+        <file alias="pl">locale/netsis_pl.qm</file>
+        <file alias="pt">locale/netsis_pt.qm</file>
+        <file alias="ro">locale/netsis_ro.qm</file>
+        <file alias="ru">locale/netsis_ru.qm</file>
+        <file alias="sk">locale/netsis_sk.qm</file>
+        <file alias="th">locale/netsis_th.qm</file>
+        <file alias="tr">locale/netsis_tr.qm</file>
+        <file alias="vi">locale/netsis_vi.qm</file>
+        <file alias="zh_CN">locale/netsis_zh_CN.qm</file>
+        <file alias="zh_TW">locale/netsis_zh_TW.qm</file>
+    </qresource>
+</RCC>

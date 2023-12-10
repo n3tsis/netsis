@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+#  netsisd The Netsis Core server.
+#
+#
+# chkconfig: 345 80 20
+# description: netsisd
+# processname: netsisd
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/netsisd, see below
+if [ -f /etc/sysconfig/netsisd ]; then
+        . /etc/sysconfig/netsisd
+fi
+
+RETVAL=0
+
+prog=netsisd
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/netsisd
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/netsisd}
+
+# netsisd defaults to /usr/bin/netsisd, override with BITCOIND_BIN
+netsisd=${BITCOIND_BIN-/usr/bin/netsisd}
+
+# netsisd opts default to -disablewallet, override with BITCOIND_OPTS
+netsisd_opts=${BITCOIND_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $netsisd $netsisd_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

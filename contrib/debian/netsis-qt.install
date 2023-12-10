@@ -1,0 +1,6 @@
+usr/local/bin/netsis-qt usr/bin
+share/pixmaps/netsis32.xpm usr/share/pixmaps
+share/pixmaps/netsis16.xpm usr/share/pixmaps
+share/pixmaps/netsis128.png usr/share/pixmaps
+debian/netsis-qt.desktop usr/share/applications
+debian/netsis-qt.protocol usr/share/kde4/services/
