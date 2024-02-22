@@ -340,6 +340,9 @@ public:
         consensus.nSuperblockStartBlock = 1; 
         consensus.nSuperblockStartHash = uint256S("0x0000017f98de5fc72da918be6c10e4c6fb4d46885777c8f300d31ab7ea6c32c6");
         consensus.nSuperblockCycle = 8760;
+        consensus.nSuperblockStartBlockV2 = 18000; 
+        consensus.nSuperblockStartHashV2 = uint256();
+        consensus.nSuperblockCycleV2 = INT_MAX;
         consensus.nGovernanceMinQuorum = 10;
         consensus.nGovernanceFilterElements = 20000;
         consensus.nMasternodeMinimumConfirmations = 15;

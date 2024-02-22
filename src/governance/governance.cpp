@@ -413,12 +413,18 @@ void CGovernanceManager::UpdateCachesAndClean()
             }
 
             int64_t nTimeExpired{0};
-
             if (pObj->GetObjectType() == GOVERNANCE_OBJECT_PROPOSAL) {
                 // keep hashes of deleted proposals forever
                 nTimeExpired = std::numeric_limits<int64_t>::max();
             } else {
-                int64_t nSuperblockCycleSeconds = Params().GetConsensus().nSuperblockCycle * Params().GetConsensus().nPowTargetSpacing;
+                int nSuperblockCycle;
+                if (chainActive.Tip()->nHeight < Params().GetConsensus().nSuperblockStartBlockV2) {
+                    nSuperblockCycle = Params().GetConsensus().nSuperblockCycle;
+                } else {
+                    nSuperblockCycle = Params().GetConsensus().nSuperblockCycleV2;
+                }
+                //int64_t nSuperblockCycleSeconds = Params().GetConsensus().nSuperblockCycle * Params().GetConsensus().nPowTargetSpacing;
+                int64_t nSuperblockCycleSeconds = nSuperblockCycle * Params().GetConsensus().nPowTargetSpacing; //L422
                 nTimeExpired = pObj->GetCreationTime() + 2 * nSuperblockCycleSeconds + GOVERNANCE_DELETION_DELAY;
             }
 
@@ -743,7 +749,14 @@ bool CGovernanceManager::MasternodeRateCheck(const CGovernanceObject& govobj, bo
     const COutPoint& masternodeOutpoint = govobj.GetMasternodeOutpoint();
     int64_t nTimestamp = govobj.GetCreationTime();
     int64_t nNow = GetAdjustedTime();
-    int64_t nSuperblockCycleSeconds = Params().GetConsensus().nSuperblockCycle * Params().GetConsensus().nPowTargetSpacing;
+    int nSuperblockCycle;
+    if (chainActive.Tip()->nHeight < Params().GetConsensus().nSuperblockStartBlockV2) {
+        nSuperblockCycle = Params().GetConsensus().nSuperblockCycle;
+    } else {
+        nSuperblockCycle = Params().GetConsensus().nSuperblockCycleV2;
+    }
+    //int64_t nSuperblockCycleSeconds = Params().GetConsensus().nSuperblockCycle * Params().GetConsensus().nPowTargetSpacing;
+    int64_t nSuperblockCycleSeconds = nSuperblockCycle * Params().GetConsensus().nPowTargetSpacing; //L753
 
     std::string strHash = govobj.GetHash().ToString();
 
@@ -879,7 +892,14 @@ void CGovernanceManager::CheckPostponedObjects(CConnman& connman)
 
     // Perform additional relays for triggers
     int64_t nNow = GetAdjustedTime();
-    int64_t nSuperblockCycleSeconds = Params().GetConsensus().nSuperblockCycle * Params().GetConsensus().nPowTargetSpacing;
+    int nSuperblockCycle;
+    if (chainActive.Tip()->nHeight < Params().GetConsensus().nSuperblockStartBlockV2) {
+        nSuperblockCycle = Params().GetConsensus().nSuperblockCycle;
+    } else {
+        nSuperblockCycle = Params().GetConsensus().nSuperblockCycleV2;
+    }
+    //int64_t nSuperblockCycleSeconds = Params().GetConsensus().nSuperblockCycle * Params().GetConsensus().nPowTargetSpacing;
+    int64_t nSuperblockCycleSeconds = nSuperblockCycle * Params().GetConsensus().nPowTargetSpacing; //L896
 
     for (auto it = setAdditionalRelayObjects.begin(); it != setAdditionalRelayObjects.end();) {
         auto itObject = mapObjects.find(*it);

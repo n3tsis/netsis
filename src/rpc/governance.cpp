@@ -1110,13 +1110,20 @@ UniValue getgovernanceinfo(const JSONRPCRequest& request)
 
     int nLastSuperblock = 0, nNextSuperblock = 0;
     int nBlockHeight = chainActive.Height();
+    int nSuperblockCycle;
+    if (nBlockHeight < Params().GetConsensus().nSuperblockStartBlockV2) {
+        nSuperblockCycle = Params().GetConsensus().nSuperblockCycle;
+    } else {
+        nSuperblockCycle = Params().GetConsensus().nSuperblockCycleV2;
+    }
 
     CSuperblock::GetNearestSuperblocksHeights(nBlockHeight, nLastSuperblock, nNextSuperblock);
 
     UniValue obj(UniValue::VOBJ);
     obj.pushKV("governanceminquorum", Params().GetConsensus().nGovernanceMinQuorum);
     obj.pushKV("proposalfee", ValueFromAmount(GOVERNANCE_PROPOSAL_FEE_TX));
-    obj.pushKV("superblockcycle", Params().GetConsensus().nSuperblockCycle);
+    //obj.pushKV("superblockcycle", Params().GetConsensus().nSuperblockCycle);
+    obj.pushKV("superblockcycle", nSuperblockCycle); //L1117
     obj.pushKV("lastsuperblock", nLastSuperblock);
     obj.pushKV("nextsuperblock", nNextSuperblock);
 
@@ -1151,11 +1158,12 @@ static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         argNames
   //  --------------------- ------------------------  -----------------------  ----------
     /* Netsis features */
+/******** DISABLED *********
     { "netsis",               "getgovernanceinfo",      &getgovernanceinfo,      {} },
     { "netsis",               "getsuperblockbudget",    &getsuperblockbudget,    {"index"} },
     { "netsis",               "gobject",                &gobject,                {} },
     { "netsis",               "voteraw",                &voteraw,                {"tx_hash","tx_index","gov_hash","signal","outcome","time","sig"} },
-
+******** DISABLED **********/
 };
 
 void RegisterGovernanceRPCCommands(CRPCTable &t)
