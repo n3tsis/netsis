@@ -338,27 +338,29 @@ public:
         consensus.nBudgetPaymentsCycleBlocks = 8760;
         consensus.nBudgetPaymentsWindowBlocks = 100;
         consensus.nSuperblockStartBlock = 1; 
-        consensus.nSuperblockStartHash = uint256();
+        consensus.nSuperblockStartHash = uint256S("0x0000017f98de5fc72da918be6c10e4c6fb4d46885777c8f300d31ab7ea6c32c6");
         consensus.nSuperblockCycle = 8760;
         consensus.nGovernanceMinQuorum = 10;
         consensus.nGovernanceFilterElements = 20000;
         consensus.nMasternodeMinimumConfirmations = 15;
         consensus.BIP34Height = 1;
-        consensus.BIP34Hash = uint256();
+        consensus.BIP34Hash = uint256S("0x0000017f98de5fc72da918be6c10e4c6fb4d46885777c8f300d31ab7ea6c32c6");
         consensus.BIP65Height = 1; 
         consensus.BIP66Height = 1; 
         consensus.DIP0001Height = 2;
         consensus.DIP0003Height = 2;
         consensus.DIP0003EnforcementHeight = 2;
-        consensus.DIP0003EnforcementHash = uint256();
+        consensus.DIP0003EnforcementHash = uint256S("0x000009f77692545306898a4c3d30f4697b2b2b37ad022e12d0e27357637bb0ae");
         consensus.DIP0008Height = 2; 
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
         consensus.nPowTargetTimespan = 10 * 60;
         consensus.nPowTargetSpacing = 5 * 60;
+	consensus.lwmaAveragingWindow = 70;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 1;
         consensus.nPowDGWHeight = 1;
+        consensus.nPowLWMAHeight = 17610;
         consensus.nRuleChangeActivationThreshold = 2; // 95% of 2
         consensus.nMinerConfirmationWindow = 2; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -417,10 +419,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0020].nFalloffCoeff = 5; // this corresponds to 10 periods
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010"); 
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000fe482e1da9f94714a4"); 
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x000009e7abe4f170b20831c0965cfa8a1c3f1b5f77328c11416b6f339a430d56"); 
+        consensus.defaultAssumeValid = uint256S("0x000000000000024921a0923fd97236ee4f0dd3da7f56a513307a6e995750b635"); 
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -509,14 +511,20 @@ public:
         checkpointData = {
             {
                 {0, uint256S("0x000009e7abe4f170b20831c0965cfa8a1c3f1b5f77328c11416b6f339a430d56")},
+                {1, uint256S("0x0000017f98de5fc72da918be6c10e4c6fb4d46885777c8f300d31ab7ea6c32c6")},
+                {16, uint256S("0x000004d89feab76215781301c36964c1268af2e9129789ca07d7c5e85ed85f2d")},
+                {62, uint256S("0x0000023a4a103af2c92c6424cbd2e662f7bfa9e39cf6db01d2d38e43963bb3bf")},
+                {681, uint256S("0x0000000000001052d8ed173be011e75b7b2d7e3d690d2d2016e6c7ce9bf9e460")},
+                {3391, uint256S("0x0000000000000013035e17a5aa3aa50451e58a3e15700564bc797f18ef8b3fc8")},
+                {17407, uint256S("0x000000000000024921a0923fd97236ee4f0dd3da7f56a513307a6e995750b635")},
             }
         };
 
         chainTxData = ChainTxData{
-            1699606284, // * UNIX timestamp of last known number of transactions
-            0,   // * total number of transactions between genesis and that timestamp
+            1708534602, // * UNIX timestamp of last known number of transactions
+            65004,   // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
-            0         // * estimated number of transactions per second after that timestamp
+            0.0084715291         // * estimated number of transactions per second after that timestamp
         };
     }
 };
