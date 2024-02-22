@@ -360,7 +360,7 @@ public:
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 1;
         consensus.nPowDGWHeight = 1;
-        consensus.nPowLWMAHeight = 17542;
+        consensus.nPowLWMAHeight = 17610;
         consensus.nRuleChangeActivationThreshold = 2; // 95% of 2
         consensus.nMinerConfirmationWindow = 2; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
