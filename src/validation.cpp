@@ -1146,7 +1146,12 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
         nSubsidy *= consensusParams.nHighSubsidyFactor;
     }
 
-    CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy * 0.07 : 0;
+    CAmount nSuperblockPart;
+    if (nPrevHeight < Params().GetConsensus().nSuperblockStartBlockV2) {
+    	nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy * 0.07 : 0;
+    } else {
+    	nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy * 0 : 0;
+    }
 
     return fSuperblockPartOnly ? nSuperblockPart : nSubsidy - nSuperblockPart;
 }
@@ -1159,8 +1164,13 @@ CAmount GetMasternodePayment(int nHeight, CAmount blockValue, int nReallocActiva
         // Block Reward Realocation is not activated yet, nothing to do
         return ret;
     }
-
-    int nSuperblockCycle = Params().GetConsensus().nSuperblockCycle;
+    int nSuperblockCycle;
+    if (nHeight < Params().GetConsensus().nSuperblockStartBlockV2) {
+        nSuperblockCycle = Params().GetConsensus().nSuperblockCycle;
+    } else {
+        nSuperblockCycle = Params().GetConsensus().nSuperblockCycleV2;
+    }
+    //int nSuperblockCycle = Params().GetConsensus().nSuperblockCycle; #L1171
     // Actual realocation starts in the cycle next to one activation happens in
     int nReallocStart = nReallocActivationHeight - nReallocActivationHeight % nSuperblockCycle + nSuperblockCycle;
 

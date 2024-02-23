@@ -147,6 +147,9 @@ struct Params {
     int nSuperblockStartBlock;
     uint256 nSuperblockStartHash;
     int nSuperblockCycle; // in blocks
+    int nSuperblockStartBlockV2;
+    uint256 nSuperblockStartHashV2;
+    int nSuperblockCycleV2; // in blocks
     int nGovernanceMinQuorum; // Min absolute vote count to trigger an action
     int nGovernanceFilterElements;
     int nMasternodeMinimumConfirmations;
